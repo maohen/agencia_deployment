@@ -24,10 +24,12 @@ config = config[app.get('env')]
 //crea varble para el nombre s¡del sitio segun el ambiente
 app.locals.titulo = config.nombresitio
 
-//calcular año
+//calcular año y retornar la ruta actual
 app.use((req,resp,next)=>{
     const fecha = new Date();
     resp.locals.añoActual= fecha.getFullYear();
+    //retornar la ruta actual
+    resp.locals.ruta= req.path;
     return next();
 })
 

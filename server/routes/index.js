@@ -1,13 +1,35 @@
 const express = require('express');
 const router = express.Router();
 const viaje = require('../models/Viajes')
-const Testimonial = require('../models/Testimoniales')
+const Testimonial = require('../models/Testimoniales');
+const Viaje = require('../models/Viajes');
+const Sequelize = require('sequelize');
 //configurar rutas
 module.exports = function(){
     router.get('/', (req, res)=>{
-        res.render('index',{
-            clase: 'home'
-        });
+        const promises =[];
+
+        promises.push(viaje.findAll({
+            limit: 3,
+            order: [
+                [Sequelize.fn('RAND')]
+              ]
+        }))
+        promises.push(Testimonial.findAll({
+            limit: 3,
+            order: [
+                [Sequelize.fn('RAND')]
+              ]
+        }))
+
+        const resultado = Promise.all(promises)
+        
+        .then(resultado => res.render('index', {
+            pagina: 'Próximos Viajes',
+            clase: 'home',
+            viajes: resultado[0],
+            testimoniales: resultado[1]
+        }))
     })
 
     router.get('/nosotros', (req, res)=>{
