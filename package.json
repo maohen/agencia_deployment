@@ -4,7 +4,8 @@
   "description": "Mi primera pagina con nodeJs",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon server"
+    "dev": "nodemon server",
+    "start": "node server"
   },
   "author": "Mauricio Henao",
   "license": "ISC",
@@ -15,5 +16,8 @@
     "nodemon": "^2.0.6",
     "pug": "^3.0.0",
     "sequelize": "^6.3.5"
+  },
+  "devDependencies": {
+    "dotenv": "^8.2.0"
   }
 }
